@@ -1,1 +1,63 @@
-s
+body {
+  margin: 0 auto;
+  background: rgb(64, 65, 58);
+  background-size: cover;
+  background-position: center center;
+  background-attachment:fixed;
+}
+.tictac{
+  background-color: rgb(64, 65, 65);
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  margin:auto;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+    box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 50px;
+  min-height: 500px;
+  min-width:500px;
+  font-family: 'Anton', serif;
+  color: white;
+
+}
+
+.title{
+  text-align:center;
+  font-size: 2em;
+}
+.buttons{
+  margin: 10px 0 20px 0;
+  text-align:center;
+}
+
+
+.message{
+  width: 100%;
+  position: absolute;
+  bottom: 30px;
+  right: 0;
+  text-align:center;
+  
+}
+.board{
+  width:100%;
+  background-color:white;
+  text-align:center;
+}
+
+.tic{
+  padding:10px;
+  margin: 5px;
+  width: 80px;
+  height: 80px;
+  font-size: 3em;
+}
+
+.row1, .row2, .row3{
+  margin:0 auto;
+  text-align:center;
+}
+  
