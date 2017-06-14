@@ -1,10 +1,10 @@
-var activePlayer, notclicked, currentPlayer, me, comp;
+var activePlayer, notclicked, currentPlayer;
 var previous = 0;
+var options = [];
 $(".message").text("Please select your symbol");
 $("#x").click(function(){
   notclicked = 0;
-  me = "X";
-  comp = "O";
+ options.push("X", "O");
   $("#o").attr("disabled", "true");
   $("#x").attr("disabled", "true");
   $("#0").removeAttr("disabled");
@@ -19,8 +19,7 @@ $("#x").click(function(){
 });
 $("#o").click(function(){
   notclicked = 0;
-  me = "O";
-  comp = "X";
+ options.push("O", "X");
   $("#x").attr("disabled", "true");
   $("#o").attr("disabled", "true");
   $("#0").removeAttr("disabled");
@@ -37,6 +36,7 @@ $("#r").click(function(){
   clearBoard();
   $(".message").text("Please select your symbol");
 });
+
 if(!notclicked){
   $("#0").attr("disabled", "true");
   $("#1").attr("disabled", "true");
@@ -48,6 +48,7 @@ if(!notclicked){
   $("#7").attr("disabled", "true");
   $("#8").attr("disabled", "true"); 
 }
+
 var board = {
   "0": "",
   "1": "",
@@ -60,72 +61,69 @@ var board = {
   "8": ""  
 };
 
+activePlayer = options;
+
 $("#0").click(function(){
-  toggler("0");
+  togglePlayer("#0");
+  changeState(currentPlayer,"0");
   result();
 });
 $("#1").click(function(){
-  toggler("1");
+  togglePlayer("#1");
+  changeState(currentPlayer,"1");
   result();
 });
 $("#2").click(function(){
-  toggler("2");
-  result(); 
+  togglePlayer("#2");  
+  changeState(currentPlayer,"2");
+  result();
 });
 $("#3").click(function(){
-  toggler("3");
+ togglePlayer("#3");
+  changeState(currentPlayer,"3");
   result();
 });
 $("#4").click(function(){
-  toggler("4");
+  togglePlayer("#4");
+  changeState(currentPlayer,"4");
   result();
 });
 $("#5").click(function(){
-  toggler("5");
-  result(); 
-});
-$("#6").click(function(){
-  toggler("6");
-  result(); 
-});
-$("#7").click(function(){
-  toggler("7");
-  result(); 
-});
-$("#8").click(function(){
-  toggler("8");
+  togglePlayer("#5");
+  changeState(currentPlayer,"5");
   result();
 });
+$("#6").click(function(){
+  togglePlayer("#6"); 
+  changeState(currentPlayer,"6");
+  result();
+});
+$("#7").click(function(){
+ togglePlayer("#7");
+  changeState(currentPlayer,"7");
+  result();
+});
+$("#8").click(function(){
+  togglePlayer("#8");
+  changeState(currentPlayer,"8");
+  result();
+  
+});
 
-function computerPick(){
-  var arr = [];
-  for(var x in board){
-    if(board[x] === ""){
-      arr.push(x);
-    }
+function changeState(player, position){
+  if(player === "X"){
+    board[position] = "X";
   }
-  var choice = Math.floor(Math.random()*(arr.length));
-  var pick = arr[choice];
-  return pick;
-  };
+  else if(player === "O"){
+    board[position] = "O";
+  }
+}
 
-function toggler(value){
-  if(previous === 0){
-    $("#"+value).text(me); 
-    board[value] = me;
-    $("#"+value).attr("disabled","true");
-    previous = 1;
-    toggler();
-  }
-  else{
-    
-    var input = computerPick();
-    console.log("computer choice " + input);
-    $("#"+input).text(comp); 
-    board[input] = comp;
-    $("#"+input).attr("disabled","true");
-    previous = 0;
-  }
+function togglePlayer(dom){
+  previous === 0 ? previous = 1 : previous = 0;
+  previous === 0 ? currentPlayer = activePlayer[1] : currentPlayer = activePlayer[0];
+  $(dom).text(currentPlayer); 
+  $(dom).attr("disabled","true");
 }
 
 function result(){
@@ -159,22 +157,10 @@ function result(){
   }
   
   if(output === "X"){
-   if(me === "X"){
-     $(".message").text("You have won the game , Select Your symbol");
-   }
-  else if(comp === "X"){
-     $(".message").text("Computer has won the game , Select Your symbol");
-   }
-    
+    $(".message").text("X has won the game , Select Your symbol");
   }
   else if(output === "O"){
-    if(me === "O"){
-      $(".message").text("You have won the game, Select Your symbol");
-    }
-    else if(comp === "O"){
-      $(".message").text("Computer has won the game, Select Your symbol");
-    }
-    
+    $(".message").text("O has won the game, Select Your symbol");
   }
   else{
   if(checkEmpty()){
@@ -188,6 +174,7 @@ function result(){
 }
 
 function clearBoard(){
+  options = [];
   board["0"] = "";
   board["1"] = "";
   board["2"] = "";
